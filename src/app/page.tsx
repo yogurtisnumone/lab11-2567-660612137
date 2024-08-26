@@ -18,6 +18,11 @@ export default function RegisterForm() {
   const [buyShoes, setBuyShoes] = useState(false);
   const [buyCap, setBuyCap] = useState(false);
 
+  const [termsAccepted, setTermsAccepted] = useState(false);
+
+  const [totalPayment, setTotalPayment] = useState(0);
+  const [discountedTotalPayment, setDiscountedTotalPayment] = useState(0);
+
   // ----------------------------------------------------------------
 
   const inputFnameOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,6 +77,10 @@ export default function RegisterForm() {
     if (buyShoes) total += 600;
     if (buyCap) total += 400;
 
+    if (buyBottle && buyShoes && buyCap) {
+      total *= 0.8;
+    }
+
     return total;
   };
 
@@ -87,44 +96,27 @@ export default function RegisterForm() {
       fnameOk = false;
       setFnameError(true);
     }
-
-    if (fnameOk) {
-      alert(
-        `Registration complete. Please pay money for ${computeTotalPayment().toLocaleString()} THB.`
-      );
-    }
-
     if (lname === "") {
       fnameOk = false;
       setFnameError(true);
     }
-
-    if (lnameOk) {
-      alert(
-        `Registration complete. Please pay money for ${computeTotalPayment().toLocaleString()} THB.`
-      );
-    }
-
     if (plan === "") {
       fnameOk = false;
       setFnameError(true);
     }
-
-    if (planOk) {
-      alert(
-        `Registration complete. Please pay money for ${computeTotalPayment().toLocaleString()} THB.`
-      );
-    }
-
     if (gender === "") {
       fnameOk = false;
       setFnameError(true);
     }
-
-    if (genderOk) {
+    if ((fnameOk && lnameOk && planOk && genderOk && termsAccepted) ) {
       alert(
         `Registration complete. Please pay money for ${computeTotalPayment().toLocaleString()} THB.`
       );
+    }
+    else{
+      if (!termsAccepted) {
+        alert("Please accept the terms and conditions.");
+      }
     }
 
   };
@@ -237,12 +229,15 @@ export default function RegisterForm() {
       <div>
         Total Payment : {computeTotalPayment().toLocaleString()} THB
         {/* Render below element conditionally when user get 20% discount */}
+        {buyBottle && buyShoes && buyCap && (
+          <span className="text-success d-block">(20% Discounted)</span>
+        )}
         {/* <span className="text-success d-block">(20% Discounted)</span> */}
       </div>
 
       {/* Terms and conditions */}
       <div>
-        <input className="me-2" type="checkbox" />I agree to the terms and
+        <input className="me-2" type="checkbox" onChange={(e) => setTermsAccepted(e.target.checked)} />I agree to the terms and
         conditions
       </div>
 
@@ -250,6 +245,7 @@ export default function RegisterForm() {
       <button
         className="btn btn-success my-2"
         onClick={registerBtnOnClick}
+        disabled={!termsAccepted}
         //You can embbed a state like below to disabled the button
         //disabled={isUserAgreed}
       >
