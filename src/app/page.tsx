@@ -4,9 +4,16 @@ import { useState } from "react";
 export default function RegisterForm() {
   const [fname, setFname] = useState("");
   const [fnameError, setFnameError] = useState(false);
+  
   const [lname, setLname] = useState("");
+  const [lnameError,  setLnameError ] = useState(false);
+
   const [plan, setPlan] = useState("");
+  const [planError, setPlanError] = useState(false);
+
   const [gender, setGender] = useState("");
+  const [genderError, setGenderError] = useState(false);
+
   const [buyBottle, setBuyBottle] = useState(false);
   const [buyShoes, setBuyShoes] = useState(false);
   const [buyCap, setBuyCap] = useState(false);
@@ -20,10 +27,17 @@ export default function RegisterForm() {
 
   const inputLnameOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLname(event.target.value);
+    setLnameError(false);
   };
 
   const selectPlanOnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setPlan(event.target.value);
+    setPlanError(false);
+  };
+  
+  const radioGenderOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setGender(event.target.value);
+    setGenderError(false);
   };
 
   const radioGenderMaleOnChange = () => {
@@ -65,6 +79,10 @@ export default function RegisterForm() {
 
   const registerBtnOnClick = () => {
     let fnameOk = true;
+    let lnameOk = true;
+    let planOk = true;
+    let genderOk = true;
+
     if (fname === "") {
       fnameOk = false;
       setFnameError(true);
@@ -75,6 +93,40 @@ export default function RegisterForm() {
         `Registration complete. Please pay money for ${computeTotalPayment().toLocaleString()} THB.`
       );
     }
+
+    if (lname === "") {
+      fnameOk = false;
+      setFnameError(true);
+    }
+
+    if (lnameOk) {
+      alert(
+        `Registration complete. Please pay money for ${computeTotalPayment().toLocaleString()} THB.`
+      );
+    }
+
+    if (plan === "") {
+      fnameOk = false;
+      setFnameError(true);
+    }
+
+    if (planOk) {
+      alert(
+        `Registration complete. Please pay money for ${computeTotalPayment().toLocaleString()} THB.`
+      );
+    }
+
+    if (gender === "") {
+      fnameOk = false;
+      setFnameError(true);
+    }
+
+    if (genderOk) {
+      alert(
+        `Registration complete. Please pay money for ${computeTotalPayment().toLocaleString()} THB.`
+      );
+    }
+
   };
 
   return (
@@ -89,8 +141,9 @@ export default function RegisterForm() {
             onChange={inputFnameOnChange}
             value={fname}
           />
-          <div className="invalid-feedback">Invalid first name</div>
+          {fnameError && <div className="invalid-feedback">Invalid first name</div>}
         </div>
+
         <div>
           <label className="form-label">Last name</label>
           <input
@@ -98,7 +151,7 @@ export default function RegisterForm() {
             onChange={inputLnameOnChange}
             value={lname}
           />
-          <div className="invalid-feedback">Invalid last name</div>
+          {lnameError && <div className="invalid-feedback">Invalid last name</div>}
         </div>
       </div>
 
@@ -116,7 +169,7 @@ export default function RegisterForm() {
           <option value="half">Half Marathon 21 Km (1,200 THB)</option>
           <option value="full">Full Marathon 42.195 Km (1,500 THB)</option>
         </select>
-        <div className="invalid-feedback">Please select a Plan</div>
+        {planError && <div className="invalid-feedback">Please select a Plan</div>}
       </div>
 
       {/* Gender */}
@@ -137,6 +190,7 @@ export default function RegisterForm() {
             checked={gender === "female"}
           />
           Female 👩
+          {genderError && <div className="text-danger">Please select gender</div>}
           {/* To show error when user did not select gender, */}
           {/* We just have to render the div below (Not using is-invalid bootstrap class) */}
           {/* <div className="text-danger">Please select gender</div> */}
