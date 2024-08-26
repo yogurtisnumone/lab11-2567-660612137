@@ -20,8 +20,6 @@ export default function RegisterForm() {
 
   const [termsAccepted, setTermsAccepted] = useState(false);
 
-  const [totalPayment, setTotalPayment] = useState(0);
-  const [discountedTotalPayment, setDiscountedTotalPayment] = useState(0);
 
   // ----------------------------------------------------------------
 
