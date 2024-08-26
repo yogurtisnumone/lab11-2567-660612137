@@ -131,7 +131,7 @@ export default function RegisterForm() {
         <div>
           <label className="form-label">First name</label>
           <input
-            
+            className={"form-control" + (fnameError ? " is-invalid" : "")}
             onChange={inputFnameOnChange}
             value={fname}
           />
@@ -175,14 +175,12 @@ export default function RegisterForm() {
             type="radio"
             onChange={radioGenderMaleOnChange}
             checked={gender === "male"}
-            value="male"
           />
           Male 👨
           <input
             className="mx-2 form-check-input"
             type="radio"
             onChange={radioGenderFemaleOnChange}
-            value="female"
             checked={gender === "female"}
           />
           Female 👩
