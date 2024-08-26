@@ -38,17 +38,15 @@ export default function RegisterForm() {
     setPlanError(false);
   };
   
-  const radioGenderOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setGender(event.target.value);
-    setGenderError(false);
-  };
 
   const radioGenderMaleOnChange = () => {
     setGender("male");
+    setGenderError(false);
   };
 
   const radioGenderFemaleOnChange = () => {
     setGender("female");
+    setGenderError(false);
   };
 
   const cbBuyBottleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,31 +92,26 @@ export default function RegisterForm() {
       fnameOk = false;
       setFnameError(true);
     }
+    
     if (lname === "") {
       lnameOk = false;
-      setFnameError(true);
+      setLnameError(true);
     }
+    
     if (plan === "") {
       planOk = false;
-      setFnameError(true);
+      setPlanError(true);
     }
+    
     if (gender === "") {
       genderOk = false;
-      setFnameError(true);
+      setGenderError(true);
     }
+    
     if ((fnameOk && lnameOk && planOk && genderOk && termsAccepted) ) {
       alert(
         `Registration complete. Please pay money for ${computeTotalPayment().toLocaleString()} THB.`
       );
-    }
-    else{
-      if (!termsAccepted) {
-        alert("Please accept the terms and conditions.");
-        let fnameOk = false;
-        let lnameOk = false;
-        let planOk = false;
-        let genderOk = false;
-      }
     }
 
   };
@@ -175,6 +168,7 @@ export default function RegisterForm() {
             type="radio"
             onChange={radioGenderMaleOnChange}
             checked={gender === "male"}
+            value="male"
           />
           Male 👨
           <input
@@ -182,6 +176,7 @@ export default function RegisterForm() {
             type="radio"
             onChange={radioGenderFemaleOnChange}
             checked={gender === "female"}
+            value="female"
           />
           Female 👩
           {genderError && <div className="text-danger">Please select gender</div>}
