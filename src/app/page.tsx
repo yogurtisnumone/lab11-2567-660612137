@@ -95,15 +95,15 @@ export default function RegisterForm() {
       setFnameError(true);
     }
     if (lname === "") {
-      fnameOk = false;
+      lnameOk = false;
       setFnameError(true);
     }
     if (plan === "") {
-      fnameOk = false;
+      planOk = false;
       setFnameError(true);
     }
     if (gender === "") {
-      fnameOk = false;
+      genderOk = false;
       setFnameError(true);
     }
     if ((fnameOk && lnameOk && planOk && genderOk && termsAccepted) ) {
