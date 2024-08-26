@@ -114,6 +114,10 @@ export default function RegisterForm() {
     else{
       if (!termsAccepted) {
         alert("Please accept the terms and conditions.");
+        let fnameOk = false;
+        let lnameOk = false;
+        let planOk = false;
+        let genderOk = false;
       }
     }
 
@@ -137,7 +141,7 @@ export default function RegisterForm() {
         <div>
           <label className="form-label">Last name</label>
           <input
-            className="form-control"
+            className={"form-control" + (lnameError ? " is-invalid" : "")}
             onChange={inputLnameOnChange}
             value={lname}
           />
@@ -149,7 +153,7 @@ export default function RegisterForm() {
       <div>
         <label className="form-label">Plan</label>
         <select
-          className="form-select"
+          className={"form-select" + (planError ? " is-invalid" : "")}
           onChange={selectPlanOnChange}
           value={plan}
         >
@@ -171,12 +175,14 @@ export default function RegisterForm() {
             type="radio"
             onChange={radioGenderMaleOnChange}
             checked={gender === "male"}
+            value="male"
           />
           Male 👨
           <input
             className="mx-2 form-check-input"
             type="radio"
             onChange={radioGenderFemaleOnChange}
+            value="female"
             checked={gender === "female"}
           />
           Female 👩
